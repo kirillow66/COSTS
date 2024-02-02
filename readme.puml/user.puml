@@ -1,6 +1,6 @@
 @startsalt user
 {
-  Логин | "MyName   "
+  Логин | "MyName             "
   Почта | "name@domain.ru     "
   [Сохранить] | [ Отмена  ]
 }
