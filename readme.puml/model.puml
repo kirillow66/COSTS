@@ -1,0 +1,40 @@
+@startuml model
+
+' avoid problems with angled crows feet
+' skinparam linetype ortho
+
+entity "User" as usr {
+  *user_id : uuid <<generated>>
+  --
+  *login : text
+  *email : text
+}
+
+entity "Category" as cat {
+  *cat_id : uuid <<generated>>
+  --
+  name : text
+}
+
+entity "Account" as acc {
+  *acc_id : uuid <<generated>>
+  --
+  name : text
+}
+
+entity "Cost" as cst {
+  *cst_id : uuid <<generated>>
+  --
+  *user_id : uuid <<FK>>
+  *date: data
+  name : text
+  *cat_id: uuid <<FK>>
+  acc_id: uuid <<FK>>
+  *sum: dec
+}
+
+usr ||..o{ cst
+cat ||..o{ cst
+acc ||..o{ cst
+
+@enduml
