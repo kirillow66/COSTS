@@ -1,0 +1,7 @@
+@startsalt user
+{
+  Логин | "MyName   "
+  Почта | "name@domain.ru     "
+  [Сохранить] | [ Отмена  ]
+}
+@endsalt

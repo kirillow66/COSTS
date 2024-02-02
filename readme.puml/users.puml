@@ -1,0 +1,14 @@
+@startsalt users
+{
+    {SI
+        vasya | vv@mail.ru
+        peter | ppetrov@mail.ru
+        lmasha | lmaria@mail.ru
+        suser | admin@mail.ru
+        .
+    }
+    {
+        [Создать]
+    }
+}
+@endsalt
