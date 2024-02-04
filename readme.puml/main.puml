@@ -2,38 +2,68 @@
 :Админ: as Admin
 
 (Вход в приложение) as (Login)
+
 (Список пользователей) as (Users)
-(Список расходов) as (Costs)
 (Карточка пользователя) as (User)
+
+(Список расходов) as (Costs)
 (Карточка расхода) as (Cost)
-(Расходы по категориям) as (Categories)
 
+(Список категорий) as (Categories)
+(Карточка категории) as (Category)
+
+(Список счётов) as (Accounts)
+(Карточка счёта) as (Account)
+
+(Расходы по категориям) as (CatReport)
+
+'Login
 Пользователь --> (Login)
-
 Admin ---> (Login)
 
-Login ---> (Users) : Если пароль верный\nи роль ADMIN
-Login ---> (Costs) : Если пароль верный\nи роль USER
-Login ---> (Login) : Если пароль неверный
+Login ---> (Users) : Если endpoint /users/\nи есть роль ADMIN
+Login ---> (Accounts) : Если endpoint /accounts/\nи есть роль ADMIN
+Login ---> (Categories) : Если endpoint /categories/\nи есть роль ADMIN
+Login ---> (Costs) : Если endpoint /costs/\nи есть роль USER
+Login ---> (Login) : Если пароль неверный или нет роли
 
+'Users
 Users ---> (User) : Создать\nнового\nпользователя
 Users ---> (User) : Изменить\nсуществующего\nпользователя
-
-Costs ---> (Cost) : Создать\nновый\nрасход
-Costs ---> (Cost) : Изменить\nсуществующий\nрасход
 
 User ---> (Users) : Сохранить\nпользователя
 User ---> (Users) : Удалить\nпользователя
 User ---> (Users) : Вернуться\nбез сохранения
 
+'Categories
+Categories ---> (Category) : Создать\nновый\nрасход
+Categories ---> (Category) : Изменить\nсуществующий\nрасход
+
+Category ---> (Categories) : Сохранить\nпользователя
+Category ---> (Categories) : Удалить\nпользователя
+Category ---> (Categories) : Вернуться\nбез сохранения
+
+'Accounts
+Accounts ---> (Account) : Создать\nновый\nрасход
+Accounts ---> (Account) : Изменить\nсуществующий\nрасход
+
+Account ---> (Accounts) : Сохранить\nпользователя
+Account ---> (Accounts) : Удалить\nпользователя
+Account ---> (Accounts) : Вернуться\nбез сохранения
+
+'Costs
+Costs ---> (Cost) : Создать\nновый\nрасход
+Costs ---> (Cost) : Изменить\nсуществующий\nрасход
+
 Cost ---> (Costs) : Сохранить\nрасход
 Cost ---> (Costs) : Удалить\nрасход
 Cost ---> (Costs) : Вернуться\nбез сохранения
 
-Costs ---> (Categories) : Перейти (по умолчанию\nпериод: текущий месяц)
-Categories ---> (Categories) : Просмотреть расходы за выбранный период
-Categories ---> (Costs) : Вернуться
+'CatReport
+Costs ---> (CatReport) : Перейти (по умолчанию\nпериод: текущий месяц)
+CatReport ---> (CatReport) : Просмотреть расходы за выбранный период
+CatReport ---> (Costs) : Вернуться
 
-note left of Login : Далее переход в зависимости от роли
+note left of Login : Далее переход в зависимости от endpoint-а и роли
 
 @enduml
