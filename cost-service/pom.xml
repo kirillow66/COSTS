@@ -19,6 +19,7 @@
     </properties>
 
     <dependencies>
+        <!--SPRING-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -42,12 +43,23 @@
         <!--            <artifactId>spring-security-test</artifactId>-->
         <!--            <scope>test</scope>-->
         <!--        </dependency>-->
-
+        <!--DATABASE-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <!--UTILS-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
 
     </dependencies>    
 </project>

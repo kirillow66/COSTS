@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog_20240205_001/2024-02-05-001-create-table-user.sql
+  - include:
+      file: db/changelog_20240205_001/2024-02-05-002-create-table-account.sql
+  - include:
+      file: db/changelog_20240205_001/2024-02-05-003-create-table-cost.sql
+  - include:
+      file: db/changelog_20240205_001/2024-02-05-004-create-table-category.sql
+  - include:
+      file: db/changelog_20240205_001/2024-02-05-005-alter-table.sql
+      
