@@ -9,4 +9,7 @@ databaseChangeLog:
       file: db/changelog_20240205_001/2024-02-05-004-create-table-category.sql
   - include:
       file: db/changelog_20240205_001/2024-02-05-005-alter-table.sql
-      
+  - include:
+      file: db/changelog/2024/02/11-01-changelog.xml
+  - include:
+      file: db/changelog/2024/02/15-02-changelog.xml              

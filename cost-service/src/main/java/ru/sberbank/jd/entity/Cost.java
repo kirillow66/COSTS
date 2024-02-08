@@ -18,6 +18,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * The type Cost.
+ */
 @Builder
 @Setter
 @Getter
@@ -31,10 +34,12 @@ public class Cost {
     private UUID id;
 
     private String name;
-
+    
     @Temporal(TemporalType.DATE)
     private LocalDate date;
 
+    private Double cost;
+    
     @ToString.Exclude
     @ManyToOne
     @JoinColumn

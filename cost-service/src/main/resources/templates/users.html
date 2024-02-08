@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="~{fragments/head :: webjar(title='Users')}">
+    <meta charset="UTF-8">
+    <title>Login page</title>
+</head>
+<body class="d-flex flex-column h-100">
+
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
+
+<main>
+
+    <div class="container-md">
+
+        <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary mb-2" href="/users/userCreate"
+           role="button">Создать</a>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th sec:authorize="hasRole('ADMIN')" scope="col">id</th>
+                <th scope="col">Логин</th>
+                <th scope="col">Имя</th>
+                <th scope="col">eMail</th>
+                <th sec:authorize="hasRole('ADMIN')" scope="col"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="user: ${users}">
+                <td sec:authorize="hasRole('ADMIN')" th:text="${user.id}">1</td>
+                <td th:text="${user.login}">Login</td>
+                <td th:text="${user.name}">name</td>
+                <td th:text="${user.email}">email</td>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <!-- <form th:action="@{'/users/userDelete/' + ${user.id}}" method="DELETE">-->
+                    <button type="button" class="btn-danger btn-close" disabled aria-label="Удалить"></button>
+                    <!-- <button type="submit" class="btn-danger btn-close" aria-label="Удалить"></button>-->
+                    <!-- </form>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+</body>
+</html>
