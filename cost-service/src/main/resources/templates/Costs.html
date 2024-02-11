@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Список расходов </title>
+</head>
+<body>
+<h1>Список расходов</h1>
+<table>
+    <caption>
+        Список расходов
+    </caption>
+    <thead>
+    <tr>
+        <th scope="col">Дата</th>
+        <th scope="col">Расход</th>
+        <th scope="col">Категория</th>
+        <th scope="col">Сумма</th>
+    </tr>
+    </thead>
+    <tbody th:each = "costs:${Costs}">
+    <tr>
+        <td th:text = "${costs.date}"></td>
+        <td th:text = "${costs.name}"></td>
+        <td th:text = "${costs.category}"></td>
+        <td th:text = "${costs.user}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<form>
+    <button formaction="/" >Создать</button>
+</form>
+</body>
+</html>
