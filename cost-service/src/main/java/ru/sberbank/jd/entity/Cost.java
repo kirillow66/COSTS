@@ -35,6 +35,8 @@ public class Cost {
     @Temporal(TemporalType.DATE)
     private LocalDate date;
 
+    private Double cost;
+    
     @ToString.Exclude
     @ManyToOne
     @JoinColumn
