@@ -7,7 +7,7 @@ public enum CategoryType {
     NONE("No category"),
     DEBIT("Debit"),
     CREDIT("Credit");
-    private String name;
+    private final String name;
 
     private CategoryType(String name) {
         this.name = name;

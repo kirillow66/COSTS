@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Builder
 @Setter
@@ -33,8 +34,11 @@ public class Cost {
     private String name;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
+    private Double price;
+    
     @ToString.Exclude
     @ManyToOne
     @JoinColumn

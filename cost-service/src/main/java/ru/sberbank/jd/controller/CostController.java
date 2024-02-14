@@ -2,7 +2,9 @@ package ru.sberbank.jd.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.sberbank.jd.entity.Cost;
 import ru.sberbank.jd.service.CostService;
@@ -12,24 +14,33 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-@RestController
-@RequestMapping("/costs/")
+@Controller
+@RequestMapping("/costs")
 @RequiredArgsConstructor
 public class CostController {
     private final CostService costService;
 
-    @PostMapping
-    public ResponseEntity createCost(@RequestBody Cost cost) {
-        return ResponseEntity.ok(costService.createCost(cost));
+    @GetMapping("/create")
+    public String createCost(Model model) {
+
+        model.addAttribute("cost", new Cost());
+        model.addAttribute("action", "create");
+        return "create-cost";
     }
 
-    @PutMapping
-    public ResponseEntity updateCost(@RequestBody Cost cost) {
-        Cost updateCost = costService.updateCost(cost);
+    @PostMapping("/create")
+    public String saveCreateCost(@ModelAttribute @Validated Cost cost, Model model) {
+        costService.createCost(cost);
+        model.addAttribute("costs", cost);
 
-        return Objects.isNull(updateCost)
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok(updateCost);
+        return "redirect:/costs";
+    }
+
+    @PostMapping("/update")
+    public String updateCost(@ModelAttribute @Validated Cost cost) {
+        costService.updateCost(cost);
+
+        return "redirect:/costs";
     }
 
     @DeleteMapping("/{id}")
@@ -42,21 +53,17 @@ public class CostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getCostById(@PathVariable("id") UUID id) {
+    public String getCostById(@PathVariable("id") UUID id, Model model) {
         Optional<Cost> cost = costService.getCostById(id);
-
-        return cost.isEmpty()
-                ? ResponseEntity.notFound().build()
-                : ResponseEntity.ok(cost);
+        model.addAttribute("cost", cost.get());
+        model.addAttribute("action", "update");
+        return "create-cost";
     }
 
     @GetMapping
-    public ResponseEntity getCosts(Model model) {
+    public String getCosts(Model model) {
         Optional<List<Cost>> costs = costService.getCosts();
-        if (costs.isEmpty()) {
-            ResponseEntity.notFound().build();
-        }
-        model.addAttribute("Costs", costs);
-        return ResponseEntity.ok(costs);
+        model.addAttribute("Costs", costs.get());
+        return "costs";
     }
 }

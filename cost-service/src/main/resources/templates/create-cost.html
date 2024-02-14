@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:form="http://www.w3.org/1999/xhtml" xmlns:inertth="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Создание расхода</h1>
+<form action="#" th:method="post" th:action="${action}" th:object="${cost}">
+    <input type="hidden" th:field="*{id}"/>
+    <label>
+        Дата
+        <input type="date" class="form-control" id="content" th:field="*{date}"/>
+    </label>
+    <br>
+    <label>
+        Расход
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br>
+    <label>Категория</label>
+    <select>
+        <option th:each="category : ${T(ru.sberbank.jd.entity.CategoryType).values()}" th:value="${category}"
+                th:text="${category.name}" th:field="*{category}"></option>
+    </select>
+    <br>
+    <label>Сумма</label>
+    <input type="number" min="0" step="0.01" th:field="*{price}">
+    <br>
+    <button type="submit">Сохранить</button>
+</form>
+<form action="#" th:method="get" th:action="@{/costs}" >
+    <button>Отмена</button>
+</form>
+</body>
+</html>
