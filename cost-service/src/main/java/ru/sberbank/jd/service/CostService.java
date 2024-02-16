@@ -2,6 +2,7 @@ package ru.sberbank.jd.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.sberbank.jd.controller.component.CostGroupByName;
 import ru.sberbank.jd.entity.Cost;
 import ru.sberbank.jd.repository.CostRepository;
 
@@ -46,5 +47,9 @@ public class CostService {
 
     public Optional<Cost> getCostById(UUID id) {
         return costRepository.findById(id);
+    }
+
+    public List<CostGroupByName> findCostsByCategory() {
+        return costRepository.findCostsGroupByName();
     }
 }

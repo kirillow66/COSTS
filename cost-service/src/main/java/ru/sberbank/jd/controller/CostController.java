@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.sberbank.jd.controller.component.CostGroupByName;
+import ru.sberbank.jd.controller.input.CostFilter;
 import ru.sberbank.jd.entity.Cost;
 import ru.sberbank.jd.service.CostService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -65,5 +68,13 @@ public class CostController {
         Optional<List<Cost>> costs = costService.getCosts();
         model.addAttribute("Costs", costs.get());
         return "costs";
+    }
+
+    @GetMapping("/category")
+    public String getCostsByCategory(Model model) {
+        List<CostGroupByName> costs = costService.findCostsByCategory();
+        model.addAttribute("filter", new CostFilter(LocalDate.MIN, LocalDate.MAX));
+        model.addAttribute("costs", costs);
+        return "cost-category";
     }
 }

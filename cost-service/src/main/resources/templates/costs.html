@@ -1,40 +1,88 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Список расходов </title>-->
+<!--</head>-->
+<!--<body class="d-flex flex-column h-100">-->
+<!--<main>-->
+<!--    <h1>Список расходов</h1>-->
+<!--    <table class="table table-bordered">-->
+<!--        <caption>-->
+<!--            Список расходов-->
+<!--        </caption>-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="col">Дата</th>-->
+<!--            <th scope="col">Расход</th>-->
+<!--            <th scope="col">Категория</th>-->
+<!--            <th scope="col">Сумма</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody th:each="cost:${Costs}">-->
+<!--        <tr>-->
+
+<!--            <td th:text="${cost.date}"></td>-->
+<!--            <td th:text="${cost.name}"></td>-->
+<!--            <td th:text="${cost.category}"></td>-->
+<!--            <td th:text="${cost.price}"></td>-->
+<!--            <td><a th:href="@{'/costs/'+ ${cost.id}}">Редактировать</a></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--    <form th:method="get" th:action="@{costs/create}">-->
+<!--        <button>Создать</button>-->
+<!--    </form>-->
+<!--    <form>-->
+<!--        <button formaction="/">Просмотр по категориям</button>-->
+<!--    </form>-->
+<!--</main>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head :: webjar(title='Список расходов')}">
     <meta charset="UTF-8">
-    <title>Список расходов </title>
+    <title>Список расходов</title>
 </head>
-<body>
-<h1>Список расходов</h1>
-<table class="table table-bordered">
-    <caption>
-        Список расходов
-    </caption>
-    <thead>
-    <tr>
-        <th scope="col">Дата</th>
-        <th scope="col">Расход</th>
-        <th scope="col">Категория</th>
-        <th scope="col">Сумма</th>
-    </tr>
-    </thead>
-    <tbody th:each="cost:${Costs}">
-    <tr>
+<body class="d-flex flex-column h-100">
 
-        <td th:text="${cost.date}"></td>
-        <td th:text="${cost.name}"></td>
-        <td th:text="${cost.category}"></td>
-        <td th:text="${cost.price}"></td>
-        <td><a th:href="@{'/costs/'+ ${cost.id}}">Редактировать</a></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container"></div>
 
-<form th:method="get" th:action="@{costs/create}">
-    <button>Создать</button>
-</form>
-<form>
-    <button formaction="/">Просмотр по категориям</button>
-</form>
+<main>
+
+    <div class="container-md">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Дата</th>
+                <th scope="col">Расход</th>
+                <th scope="col">Категория</th>
+                <th scope="col">Сумма</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="cost:${Costs}">
+                <td th:text="${cost.date}"></td>
+                <td th:text="${cost.name}"></td>
+                <td th:text="${cost.category}"></td>
+                <td th:text="${cost.price}"></td>
+                <td><a class="btn btn-outline-primary btn-sm" a th:href="@{'/costs/'+ ${cost.id}}" role="button">Редактировать</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <form th:method="get" th:action="@{costs/create}">
+            <input class="btn btn-primary" type="submit" value="Создать">
+        </form>
+        <form action="#" th:method="get" th:action="@{/costs/category}">
+            <input class="btn btn-primary" type="submit" value="Просмотр по категориям">
+        </form>
+    </div>
+</main>
 </body>
 </html>
