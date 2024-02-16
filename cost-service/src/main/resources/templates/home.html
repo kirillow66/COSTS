@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: webjar(title='Home')}">
+    <meta charset="UTF-8">
+    <title>Учет расходов</title>
+</head>
+<body>
+    <div class="container">
+        <header th:replace="~{fragments/header :: header(headerTitle='Учет расходов')}"></header>
+        <table th:replace="~{fragments/table :: table}"></table>
+    </div>
+</body>
+</html>

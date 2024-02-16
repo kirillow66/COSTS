@@ -1,0 +1,46 @@
+### Get all owner list (u:p kosta_k:kosta_k)
+GET http://localhost:8080/api/users/all
+Authorization: Basic a29zdGFfazprb3N0YV9r
+
+### Try to get all list (owner u:p kosta_k:kosta_k)
+GET http://localhost:8080/api/users/all
+Authorization: Basic a29zdGFfazprb3N0YV9r
+
+### get rec other owner (owner u:p kosta_k:kosta_k)
+GET http://localhost:8080/api/users/4167b392-f2ea-47e2-9588-baa52582bc4f
+Authorization: Basic a29zdGFfazprb3N0YV9r
+
+### Get admin (admin u:p admin:admin)
+GET http://localhost:8080/api/users/4167b392-f2ea-47e2-9588-baa52582bc4f
+Authorization: Basic YWRtaW46YWRtaW4=
+
+### Get all admin list (admin u:p admin:admin)
+GET http://localhost:8080/api/users/all
+Authorization: Basic YWRtaW46YWRtaW4=
+
+### Register new user
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "login": "newuser",
+  "name": "New User",
+  "email": "new@user.ru",
+  "password": "newuser"
+}
+
+### Register new admin
+POST http://localhost:8080/users/admin
+Authorization: Basic YWRtaW46YWRtaW4=
+Content-Type: application/json
+
+{
+  "login": "newadmin",
+  "name": "New admin",
+  "email": "new@admin.ru",
+  "password": "newadmin"
+}
+
+### delete newadmin
+DELETE http://localhost:8080/users/admin/newadmin
+Authorization: Basic YWRtaW46YWRtaW4=
