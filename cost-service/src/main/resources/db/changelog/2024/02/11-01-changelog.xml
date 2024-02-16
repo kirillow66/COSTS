@@ -10,5 +10,4 @@
             <column name="cost" type="DOUBLE"/>
         </addColumn>
     </changeSet>
-
 </databaseChangeLog>

@@ -19,6 +19,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
+/**
+ * The type Cost.
+ */
 @Builder
 @Setter
 @Getter
@@ -32,7 +35,7 @@ public class Cost {
     private UUID id;
 
     private String name;
-
+    
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;

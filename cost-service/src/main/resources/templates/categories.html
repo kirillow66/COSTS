@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="~{fragments/head :: webjar(title='Categories')}">
+    <meta charset="UTF-8">
+    <title>Login page</title>
+</head>
+<body class="d-flex flex-column h-100">
+
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
+
+<main>
+
+<!--    <div class="container-md">-->
+
+<!--        <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary mb-2" -->
+<!--           href="/categories/categoryCreate" disabled role="button">Создать</a>-->
+
+<!--        <table class="table">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th sec:authorize="hasRole('ADMIN')" scope="col">id</th>-->
+<!--                <th scope="col">Категория</th>-->
+<!--                <th scope="col">Тип</th>-->
+<!--                <th sec:authorize="hasRole('ADMIN')" scope="col"></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+
+<!--            <tbody>-->
+<!--            <tr th:each="category: ${categories}">-->
+<!--                <td sec:authorize="hasRole('ADMIN')" th:text="${category.id}">1</td>-->
+<!--                <td th:text="${category.name}">Category</td>-->
+<!--                <td th:text="${category.categoryType}">categoryType</td>-->
+<!--                <td sec:authorize="hasRole('ADMIN')">-->
+<!--                    &lt;!&ndash; <form th:action="@{'/users/userDelete/' + ${user.id}}" method="DELETE">&ndash;&gt;-->
+<!--                    <button type="button" class="btn-danger btn-close" disabled aria-label="Удалить"></button>-->
+<!--                    &lt;!&ndash; <button type="submit" class="btn-danger btn-close" aria-label="Удалить"></button>&ndash;&gt;-->
+<!--                    &lt;!&ndash; </form>&ndash;&gt;-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+
+</main>
+
+</body>
+</html>

@@ -17,6 +17,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * The type User.
+ */
 @Builder
 @Setter
 @Getter
@@ -36,4 +39,5 @@ public class User {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<UserRole> userRoles;
+
 }
