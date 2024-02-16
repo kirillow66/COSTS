@@ -1,0 +1,31 @@
+#   COST-5 Добавить CRUD для категорий :DONE:
+#   COST-6 Добавить UI
+
+# https://www.base64encode.org/
+# user:password --> dXNlcjpwYXNzd29yZA==
+
+###
+POST http://localhost:8080/api/categories
+Content-Type: application/json;charset=UTF-8
+
+{
+    "name": "name of category"
+}
+
+###
+GET http://localhost:8080/api/categories/1af2d119-799b-483d-9fe6-9388df15d663
+
+###
+GET http://localhost:8080/api/categories/
+
+### 
+PUT http://localhost:8080/api/categories
+Content-Type: application/json;charset=UTF-8
+
+{
+    "id": "1af2d119-799b-483d-9fe6-9388df15d663",
+    "name": "new name of category"
+}
+
+### 
+DELETE http://localhost:8080/api/categories/1af2d119-799b-483d-9fe6-9388df15d663

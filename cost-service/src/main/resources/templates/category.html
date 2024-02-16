@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Категория расходов</title>
+
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 6px;
+      margin: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<main role="main" class="container">
+
+  <div class="starter-template">
+    <h1>Категория расходов</h1>
+  </div>
+
+  <form action="#" th:action="@{/categories}" th:object="${update}" method="post">
+    <table>
+      <tr>
+        <td><label th:for="'name_' + ${id}">First name:</label></td>
+        <td><input type="text" th:id="'name_' + ${id}" name="name" th:value="${name}"/></td>
+      </tr>
+    </table>
+
+    <input type="hidden" th:id="'id_' + ${id}" name="id" th:value="${id}"/>
+    <input type="submit" value="Сохранить"/>
+  </form>
+
+  <button>Удалить</button>
+
+  <a href="/categories">Отмена</a>
+
+</main>
+
+</body>
+</html>
