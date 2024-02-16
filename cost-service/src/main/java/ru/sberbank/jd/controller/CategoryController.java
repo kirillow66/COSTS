@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 import ru.sberbank.jd.controller.in.CategoryInput;
@@ -49,6 +47,21 @@ public class CategoryController {
         return "categories";
     }
 
+    @PostMapping("/delete")
+    public String delete(@ModelAttribute CategoryUpdate update, Model model) {
+
+        log.info("[delete] id={}", update.id());
+
+        Category entity = service.delete(update.id());
+
+        if (entity == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
+        }
+
+        model.addAttribute("categories", service.get());
+        return "categories";
+    }
+
     @GetMapping("/{id}")
     public String get(@PathVariable("id") UUID id, Model model) {
 
@@ -70,7 +83,7 @@ public class CategoryController {
         return "category";
     }
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = {"", "/", "/all"})
     public String get(HttpServletRequest request, Model model) {
 
         log.info("[get all]");
@@ -81,19 +94,5 @@ public class CategoryController {
 
         model.addAttribute("categories", categories);
         return "categories";
-    }
-
-    @DeleteMapping("/{id}")
-    public Category delete(@PathVariable("id") UUID id, Model model) {
-
-        log.info("[delete] id={}", id);
-
-        Category entity = service.delete(id);
-
-        if (entity == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found");
-        } else {
-            return entity;
-        }
     }
 }

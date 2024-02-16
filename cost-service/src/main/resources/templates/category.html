@@ -1,47 +1,35 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Категория расходов</title>
-
-  <link rel="stylesheet" th:href="@{/css/main.css}"/>
-
-  <style>
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      padding: 6px;
-      margin: 8px;
-    }
-  </style>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="~{fragments/head :: webjar(title='Categories')}">
+  <meta charset="UTF-8">
+  <title>Login page</title>
 </head>
+<body class="d-flex flex-column h-100">
 
-<body>
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
 
-<main role="main" class="container">
+<main role="main" sec:authorize="hasRole('ADMIN')">
 
-  <div class="starter-template">
-    <h1>Категория расходов</h1>
+  <div class="container-md">
+
+    <!--==================================================================================-->
+    <form action="#" th:action="@{/categories}" th:object="${update}" method="post">
+      <table class="table">
+        <tr>
+          <td><label th:for="'id_' + ${id}">Id:</label></td>
+          <td><input type="text" th:id="'id_' + ${id}" name="id" th:value="${id}" disabled/></td>
+        </tr>
+        <tr>
+          <td><label th:for="'name_' + ${id}">First name:</label></td>
+          <td><input type="text" th:id="'name_' + ${id}" name="name" th:value="${name}"/></td>
+        </tr>
+      </table>
+
+      <input type="submit" class="btn btn-primary mb-2" role="button" value="Сохранить"/>
+      <a class="btn btn-primary mb-2" href="/categories" role="button">Отмена</a>
+    </form>
+    <!--==================================================================================-->
   </div>
-
-  <form action="#" th:action="@{/categories}" th:object="${update}" method="post">
-    <table>
-      <tr>
-        <td><label th:for="'name_' + ${id}">First name:</label></td>
-        <td><input type="text" th:id="'name_' + ${id}" name="name" th:value="${name}"/></td>
-      </tr>
-    </table>
-
-    <input type="hidden" th:id="'id_' + ${id}" name="id" th:value="${id}"/>
-    <input type="submit" value="Сохранить"/>
-  </form>
-
-  <button>Удалить</button>
-
-  <a href="/categories">Отмена</a>
-
 </main>
 
 </body>

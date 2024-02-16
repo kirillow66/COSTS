@@ -15,7 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.jetbrains.annotations.NotNull;
 import ru.sberbank.jd.controller.in.CategoryInput;
 import ru.sberbank.jd.controller.in.CategoryUpdate;
 
