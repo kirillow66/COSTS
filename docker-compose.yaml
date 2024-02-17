@@ -3,6 +3,7 @@ version: '3.9'
 services:
   service-db:
     image: postgres:14.8-alpine3.18
+    container_name: costs_db
     environment:
       POSTGRES_USER: "u_admin"
       POSTGRES_PASSWORD: "adminpass"
@@ -14,5 +15,14 @@ services:
     ports:
       - "5432:5432"
 
+  service-app:
+    build: 
+      context: cost-service
+      dockerfile: Dockerfile
+    container_name: costs_app
+    depends_on:
+      - service-db
+    ports:
+      - '8080:8080'
 volumes:
   costs-data:

@@ -8,7 +8,7 @@
     <artifactId>AppCostAccount</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <modules>
         <module>cost-service</module>
     </modules>
@@ -17,34 +17,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <junit-version>4.13.2</junit-version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.2.1</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>            
-           
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit-version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
+    
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <!--                    <version>3.1.2</version>-->
                     <version>3.3.1</version>
                     <dependencies>
                         <dependency>
@@ -57,7 +37,6 @@
                         <configLocation>
                             ${basedir}/../checkstyle/google_checks_modified.xml
                         </configLocation>
-                        <!--                        <encoding>UTF-8</encoding>-->
                         <consoleOutput>true</consoleOutput>
                         <violationSeverity>warning</violationSeverity>
                         <linkXRef>false</linkXRef>
@@ -72,12 +51,19 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.3.1</version>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.2.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>    
 </project>
