@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/db_costs
     username: u_costs 
-    password: pass 
+    password: pass
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
@@ -19,3 +19,7 @@ logging:
     org:
       springframework:
         security: DEBUG
+#  thymeleaf:
+#    cache: false
+#  resources:
+#    add-mappings: true

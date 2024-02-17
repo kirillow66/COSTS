@@ -15,6 +15,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.sberbank.jd.controller.in.CategoryInput;
+import ru.sberbank.jd.controller.in.CategoryUpdate;
 
 /**
  * The type Category.
@@ -27,6 +29,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "t_category")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -38,5 +41,19 @@ public class Category {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    private CategoryType categoryType;    
+    private CategoryType categoryType;
+
+    public static Category of(CategoryInput input) {
+        return new CategoryBuilder()
+                .id(UUID.randomUUID())
+                .name(input.name())
+                .build();
+    }
+
+    public static Category of(CategoryUpdate update) {
+        return new CategoryBuilder()
+                .id(update.id())
+                .name(update.name())
+                .build();
+    }
 }
