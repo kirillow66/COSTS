@@ -19,6 +19,8 @@ services:
     build: 
       context: cost-service
       dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://service-db:5432/db_costs
     container_name: costs_app
     depends_on:
       - service-db
