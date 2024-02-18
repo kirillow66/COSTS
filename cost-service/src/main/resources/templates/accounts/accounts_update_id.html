@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="~{fragments/head :: webjar(title='Update Account')}">
+  <meta charset="UTF-8">
+  <title>Обновление параметров счета</title>
+</head>
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Update Account')}"></div>
+
+<body>
+<h3>Обновление параметров счета</h3 >
+<p>Изменение счета с ID: <span th:text="${accountDto.id}"></span></p>
+<form th:action="@{/accounts/update/{id}(id=${accountDto.id})}" method="post">
+  <label for="name">Новое название:</label>
+  <input type="text" id="name" name="name" th:value="${accountDto.name}" required><br>
+  <button type="submit" class="btn btn-primary">Обновить счет</button>
+
+</form>
+
+<a href="/accounts" class="btn btn-primary mb-2" role="button">Назад к списку счетов</a>
+</body>
+
+</html>
