@@ -1,6 +1,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/db_costs
+#    url: jdbc:postgresql://service-db:5432/db_costs
     username: u_costs 
     password: pass
     driver-class-name: org.postgresql.Driver

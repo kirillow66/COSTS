@@ -28,16 +28,18 @@
 
             <tbody>
             <tr th:each="user: ${users}">
-                <td sec:authorize="hasRole('ADMIN')" th:text="${user.id}">1</td>
-                <td th:text="${user.login}">Login</td>
-                <td th:text="${user.name}">name</td>
-                <td th:text="${user.email}">email</td>
+                <td sec:authorize="hasRole('ADMIN')" th:text="${user.getId()}">1</td>
+                <td th:text="${user.getLogin()}">Login</td>
+                <td th:text="${user.getName()}">name</td>
+                <td th:text="${user.getEmail()}">email</td>
                 <td sec:authorize="hasRole('ADMIN')">
-                    <!-- <form th:action="@{'/users/userDelete/' + ${user.id}}" method="DELETE">-->
-                    <button type="button" class="btn-danger btn-close" disabled aria-label="Удалить"></button>
-                    <!-- <button type="submit" class="btn-danger btn-close" aria-label="Удалить"></button>-->
-                    <!-- </form>-->
+                    <form th:action="@{'/users/userDelete'}" method="POST">
+                        <input th:id="'id_' + ${user.getId()}" th:value="${user.getId()}" type="hidden" name="id"/>
+                        <button th:disabled="${user.getLogin() == 'admin'}" type="submit" class="btn-danger btn-close"
+                                aria-label="Удалить"></button>
+                    </form>
                 </td>
+            </tr>
             </tr>
             </tbody>
         </table>

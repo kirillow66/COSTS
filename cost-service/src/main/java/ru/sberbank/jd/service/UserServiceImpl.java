@@ -5,9 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.sberbank.jd.entity.User;
@@ -31,7 +29,6 @@ public class UserServiceImpl implements UserService {
      * @return the by id
      */
     @Override
-    @PostAuthorize("returnObject.id == @customAuthorizerFilter.isPrincipal() or hasRole('ADMIN')")
     public User findById(UUID id) {  
         Optional<User> byId = repository.findById(id);
         return byId.orElse(null);
@@ -44,7 +41,6 @@ public class UserServiceImpl implements UserService {
      * @return the optional
      */
     @Override
-    @PostAuthorize("returnObject.id == @customAuthorizerFilter.isPrincipal() or hasRole('ADMIN')")
     public User findByLogin(final String login) {
         Optional<User> byLogin = repository.findByLogin(login);
         return byLogin.orElse(null);
@@ -87,7 +83,7 @@ public class UserServiceImpl implements UserService {
      * @param id the id
      */
     @Override
-    @PreAuthorize("hasAuthority('admin:delete')")
+//    @PreAuthorize("hasAuthority('admin:delete')")
     public void delete(final UUID id) {
         repository.deleteById(id);
     }
