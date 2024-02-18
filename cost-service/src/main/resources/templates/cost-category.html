@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head th:insert="~{fragments/head :: webjar(title='Список расходов по категориям')}">
+    <meta charset="UTF-8">
+</head>
+<body class="d-flex flex-column h-100">
+<form action="#" th:method="post" th:object="${filter}">
+<!--    <input type="hidden" th:field="*{id}"/>-->
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Период
+        </button>
+        <ul class="dropdown-menu">
+            <li><input type="date" class="form-control" th:field="*{dateFrom}" aria-label="Дата с"
+                       aria-describedby="Дата с">
+                <input type="date" class="form-control" th:field="*{dateTo}" aria-label="Дата по"
+                       aria-describedby="Дата по"></li>
+            <li><input class="btn btn-primary" type="submit" value="Применить"></li>
+        </ul>
+    </div>
+</form>
+
+<div class="container"></div>
+
+<main>
+
+    <div class="container-md">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Категория</th>
+                <th scope="col">Сумма</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="cost:${costs}">
+                <td th:text="${cost.name}"></td>
+                <td th:text="${cost.price}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>
