@@ -8,8 +8,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.sberbank.jd.controller.component.CostGroupByName;
 import ru.sberbank.jd.controller.input.CostFilter;
+import ru.sberbank.jd.entity.Category;
 import ru.sberbank.jd.entity.Cost;
+import ru.sberbank.jd.service.CategoryService;
 import ru.sberbank.jd.service.CostService;
+import ru.sberbank.jd.service.security.AuthorizerUserService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,17 +25,21 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CostController {
     private final CostService costService;
+    private final CategoryService categoryService;
 
     @GetMapping("/create")
     public String createCost(Model model) {
 
         model.addAttribute("cost", new Cost());
+        model.addAttribute("categories", categoryService.get());
         model.addAttribute("action", "create");
         return "create-cost";
     }
 
     @PostMapping("/create")
     public String saveCreateCost(@ModelAttribute @Validated Cost cost, Model model) {
+        AuthorizerUserService userService = new AuthorizerUserService();
+        cost.setUser(userService.getPrincipal());
         costService.createCost(cost);
         model.addAttribute("costs", cost);
 
@@ -59,14 +66,15 @@ public class CostController {
     public String getCostById(@PathVariable("id") UUID id, Model model) {
         Optional<Cost> cost = costService.getCostById(id);
         model.addAttribute("cost", cost.get());
+        model.addAttribute("categories", categoryService.get());
         model.addAttribute("action", "update");
         return "create-cost";
     }
 
     @GetMapping
     public String getCosts(Model model) {
-        Optional<List<Cost>> costs = costService.getCosts();
-        model.addAttribute("Costs", costs.get());
+        List<Cost> costs = costService.getCosts();
+        model.addAttribute("Costs", costs);
         return "costs";
     }
 

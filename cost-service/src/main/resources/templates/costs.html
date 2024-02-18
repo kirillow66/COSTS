@@ -47,12 +47,18 @@
     <title>Список расходов</title>
 </head>
 <body class="d-flex flex-column h-100">
-
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
 <div class="container"></div>
 
 <main>
 
     <div class="container-md">
+        <form th:method="get" th:action="@{costs/create}">
+            <input class="btn btn-primary" type="submit" value="Создать">
+        </form>
+        <form action="#" th:method="get" th:action="@{/costs/category}">
+            <input class="btn btn-primary" type="submit" value="Просмотр по категориям">
+        </form>
         <table class="table">
             <thead>
             <tr>
@@ -68,20 +74,14 @@
             <tr th:each="cost:${Costs}">
                 <td th:text="${cost.date}"></td>
                 <td th:text="${cost.name}"></td>
-                <td th:text="${cost.category}"></td>
+                <td th:text="${cost.category.getName()}"></td>
                 <td th:text="${cost.price}"></td>
+                <!--                <td th:text="*{cost.user.id}"></td>-->
                 <td><a class="btn btn-outline-primary btn-sm" a th:href="@{'/costs/'+ ${cost.id}}" role="button">Редактировать</a>
                 </td>
             </tr>
             </tbody>
         </table>
-
-        <form th:method="get" th:action="@{costs/create}">
-            <input class="btn btn-primary" type="submit" value="Создать">
-        </form>
-        <form action="#" th:method="get" th:action="@{/costs/category}">
-            <input class="btn btn-primary" type="submit" value="Просмотр по категориям">
-        </form>
     </div>
 </main>
 </body>

@@ -15,10 +15,10 @@ import java.util.UUID;
 public interface CostRepository extends JpaRepository<Cost, UUID> {
     @Query("""
             SELECT
-             new ru.sberbank.jd.controller.component.CostGroupByName(c.name, SUM(c.price))
+             new ru.sberbank.jd.controller.component.CostGroupByName(c.user.id, c.category.name, SUM(c.price))
             FROM
              Cost c
-            GROUP BY c.name"""
+            GROUP BY c.user.id, c.category.name"""
     )
     List<CostGroupByName> findCostsGroupByName();
 

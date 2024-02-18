@@ -3,34 +3,49 @@
 <head th:insert="~{fragments/head :: webjar(title='Список расходов')}">
     <meta charset="UTF-8">
 </head>
-<body class="d-flex flex-content align-content-center h-auto">
-<form action="#" th:method="post" th:action="${action}" th:object="${cost}">
-    <input type="hidden" th:field="*{id}"/>
-    <div class="input-group mb-3">
-        <span class="input-group-text">Дата</span>
-        <input type="date" class="form-control" th:field="*{date}" aria-label="Дата"
-               aria-describedby="Дата">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text">Расход</span>
-        <input type="text" class="form-control" th:field="*{name}">
-    </div>
-    <div class="input-group mb-3">
-        <select class="input-group mb-3" aria-label="Категория">
-            <option th:each="category : ${T(ru.sberbank.jd.entity.CategoryType).values()}" th:value="${category}"
-                    th:text="${category.name}" th:field="*{category}"></option>
-        </select>
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text">Сумма</span>
-        <input type="number" class="form-control" min="0" step="0.01" th:field="*{price}">
-    </div>
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <input class="btn btn-primary" type="submit" value="Сохранить">
-        <a class="btn btn-outline-secondary" href="/costs" role="button">Отмена</a>
-<!--        <input class="btn btn-primary" type="submit" th:method="get" th:action="@{/costs}" value="Отмена">-->
-    </div>
-</form>
+
+<body class="d-flex flex-column h-100">
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
+<div class="container"></div>
+
+<main>
+    <form action="#" th:method="post" th:action="${action}" th:object="${cost}">
+        <div class="container-md">
+            <div class="row">
+                <div class="col-12 col-sm-10 col-md-7 col-lg-6">
+                    <input type="hidden" th:field="*{user}"/>
+                    <input type="hidden" th:field="*{id}"/>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Дата</span>
+                        <input type="date" class="form-control" th:field="*{date}" aria-label="Дата"
+                               aria-describedby="Дата">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Расход</span>
+                        <input type="text" class="form-control" th:field="*{name}">
+                    </div>
+                    <div class="input-group mb-3">
+                        <select class="input-group mb-3" aria-label="Категория" required th:field="*{category.id}">
+                            <!--                            <option th:each="category : ${T(ru.sberbank.jd.entity.CategoryType).values()}"-->
+                            <option th:each="categorys : ${categories}"
+                                    th:name="categories" th:value="${categorys.id}"
+                                    th:text="${categorys.getName()}"></option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Сумма</span>
+                        <input type="number" class="form-control" min="0" step="0.01" th:field="*{price}">
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <input class="btn btn-primary" type="submit" value="Сохранить">
+                        <a class="btn btn-outline-secondary" href="/costs" role="button">Отмена</a>
+                        <!--        <input class="btn btn-primary" type="submit" th:method="get" th:action="@{/costs}" value="Отмена">-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
 <!--<form action="#" th:method="get" th:action="@{/costs}">-->
 <!--    <input class="btn btn-primary" type="submit" value="Отмена">-->
 <!--</form>-->

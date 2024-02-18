@@ -1,6 +1,7 @@
 package ru.sberbank.jd.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Service;
 import ru.sberbank.jd.controller.component.CostGroupByName;
 import ru.sberbank.jd.entity.Cost;
@@ -33,22 +34,16 @@ public class CostService {
         costRepository.deleteById(id);
         return id;
     }
-//    public UUID deleteUserCosts(UUID userId) {
-//        if (!costRepository.existsById(userId)) {
-//            return null;
-//        }
-//        costRepository.d;
-//        return id;
-//    }
 
-    public Optional<List<Cost>> getCosts() {
-        return Optional.of(costRepository.findAll());
+    @PostFilter("@authorizerUserService.isPrincipalId(filterObject.user.id)")
+    public List<Cost> getCosts() {
+        return costRepository.findAll();
     }
 
     public Optional<Cost> getCostById(UUID id) {
         return costRepository.findById(id);
     }
-
+    @PostFilter("@authorizerUserService.isPrincipalId(filterObject.userId)")
     public List<CostGroupByName> findCostsByCategory() {
         return costRepository.findCostsGroupByName();
     }

@@ -2,6 +2,7 @@ package ru.sberbank.jd.controller.component;
 
 import lombok.*;
 
+import java.util.UUID;
 
 
 @Builder
@@ -10,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CostGroupByName {
+    private UUID userId;
     private String name;
     private Double price;
 }
