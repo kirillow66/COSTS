@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="~{fragments/head :: webjar(title='Accounts')}">
+  <meta charset="UTF-8">
+  <title>Accounts</title>
+</head>
+
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Accounts')}"></div>
+
+<body>
+<h3>Счета</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th sec:authorize="hasRole('ADMIN')" scope="col">ID</th>
+    <th scope="col">Account Number</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="account : ${accounts}">
+    <td sec:authorize="hasRole('ADMIN')" th:text="${account.id}">1</td>
+    <td><a th:href="@{/accounts/{id}(id=${account.getId()})}" th:text="${account.getName()}">name</a></td>
+  </tr>
+  </tbody>
+</table>
+
+<a sec:authorize="hasRole('ADMIN')" class="btn btn-primary mb-2" href="/accounts/create" role="button">Создать новый счет</a>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head :: webjar(title='Create Account')}">
+  <meta charset="UTF-8">
+  <title>Create Account</title>
+</head>
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Create Account')}"></div>
+
+<body>
+<h3>Создание счета</h3>
+<form th:action="@{/accounts/create}" method="post" th:object="${accountDto}">
+  <div class="form-group">
+    <label for="name">Номер счета:</label>
+    <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+
+</body>
+</html>
