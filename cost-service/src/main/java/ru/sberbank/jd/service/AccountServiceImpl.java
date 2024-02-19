@@ -9,11 +9,19 @@ import ru.sberbank.jd.dto.AccountDto;
 import ru.sberbank.jd.entity.Account;
 import ru.sberbank.jd.repository.AccountRepository;
 
+/**
+ * The type Account service.
+ */
 @Service
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
+    /**
+     * Instantiates a new Account service.
+     *
+     * @param accountRepository the account repository
+     */
     public AccountServiceImpl(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }

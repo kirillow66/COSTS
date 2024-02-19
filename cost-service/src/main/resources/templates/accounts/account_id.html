@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:insert="~{fragments/head :: webjar(title='Account Details')}">
-  <meta charset="UTF-8">
-  <title>Параметры счета</title>
+    <meta charset="UTF-8">
+    <title>Параметры счета</title>
 </head>
-<div class="container" th:insert="~{fragments/header :: header(headerTitle='Account Details')}"></div>
+<body class="d-flex flex-column h-100">
 
-<body>
-<h3>Детали счета</h3>
-<table class="table">
-  <tr>
-    <th>ID</th>
-    <th>Название</th>
-  </tr>
-  <tr>
-    <td th:text="${accountDto.id}"></td>
-    <td th:text="${accountDto.name}"></td>
-  </tr>
-</table>
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
 
-<form th:action="@{/accounts/update/{id}(id=${accountDto.id})}" method="get">
-  <button type="submit" class="btn btn-primary">Изменить счет</button>
-</form>
+<main>
+    <div class="container-md">
+        <div class="row">
+            <div class="col-12 col-sm-10 col-md-7 col-lg-6">
+                <div class="alert alert-success" role="alert">
+                    Детали счета
+                </div>
 
-<form th:action="@{/accounts/delete/{id}(id=${accountDto.id})}" method="get">
-  <button type="submit" class="btn btn-danger">Удалить счет</button>
-</form>
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Название</th>
+                    </tr>
+                    <tr>
+                        <td th:text="${accountDto.id}"></td>
+                        <td th:text="${accountDto.name}"></td>
+                    </tr>
+                </table>
+
+                <div class="row g-3">
+                    <div class="col-sm">
+                        <form th:action="@{/accounts/update/{id}(id=${accountDto.id})}" method="get">
+                            <button type="submit" class="btn btn-primary">Изменить счет</button>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        <form th:action="@{/accounts/delete/{id}(id=${accountDto.id})}" method="get">
+                            <button type="submit" class="btn btn-danger">Удалить счет</button>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        <a href="/accounts" class="btn btn-outline-secondary" role="button">Отмена</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 
 </html>
