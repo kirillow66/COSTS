@@ -26,10 +26,16 @@
                     </div>
                     <div class="input-group mb-3">
                         <select class="input-group mb-3" aria-label="Категория" required th:field="*{category.id}">
-                            <!--                            <option th:each="category : ${T(ru.sberbank.jd.entity.CategoryType).values()}"-->
-                            <option th:each="categorys : ${categories}"
-                                    th:name="categories" th:value="${categorys.id}"
-                                    th:text="${categorys.getName()}"></option>
+                            <option th:each="categoryEach : ${categories}"
+                                    th:name="categories" th:value="${categoryEach.id}"
+                                    th:text="${categoryEach.getName()}"></option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select class="input-group mb-3" aria-label="Счёт" required th:field="*{account.id}">
+                            <option th:each="account : ${accounts}"
+                                    th:name="accounts" th:value="${account.id}"
+                                    th:text="${account.getName()}"></option>
                         </select>
                     </div>
                     <div class="input-group mb-3">
@@ -38,16 +44,15 @@
                     </div>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <input class="btn btn-primary" type="submit" value="Сохранить">
-                        <a class="btn btn-outline-secondary" href="/costs" role="button">Отмена</a>
-                        <!--        <input class="btn btn-primary" type="submit" th:method="get" th:action="@{/costs}" value="Отмена">-->
+                        <a class="btn btn-outline-secondary" role="button"
+                           th:href="@{'/costs?page=' + ${pageable.getPageNumber() + 1} + '&size=' + ${pageable.getPageSize()}}">Отмена</a>
+                        <!--                        <a class="btn btn-outline-secondary" th:href="@{redirect:/costs?page={page}&size={size}(page = ${pageable.getPageNumber() + 1},size = ${pageable.getPageSize())}">-->
+
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </main>
-<!--<form action="#" th:method="get" th:action="@{/costs}">-->
-<!--    <input class="btn btn-primary" type="submit" value="Отмена">-->
-<!--</form>-->
 </body>
 </html>

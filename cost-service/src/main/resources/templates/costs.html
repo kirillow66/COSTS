@@ -76,12 +76,39 @@
                 <td th:text="${cost.name}"></td>
                 <td th:text="${cost.category.getName()}"></td>
                 <td th:text="${cost.price}"></td>
-                <!--                <td th:text="*{cost.user.id}"></td>-->
                 <td><a class="btn btn-outline-primary btn-sm" a th:href="@{'/costs/'+ ${cost.id}}" role="button">Редактировать</a>
                 </td>
             </tr>
             </tbody>
         </table>
+        <nav aria-label="Page navigation" th:if="${Costs.getTotalPages()} gt 1">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${Costs.getNumber()} eq 0 ? 'disabled'">
+                    <th:block>
+                        <a class="page-link"
+                           th:href="@{${action}(
+                            page=${Costs.getNumber() lt 2 ? 1 : Costs.getNumber()}, size=${pageable.getPageSize()}
+                       )}"
+                        >Previous</a>
+                    </th:block>
+                </li>
+
+                <li class="page-item">
+                    <span class="page-link" th:text="${Costs.getNumber()} + 1"></span>
+                </li>
+
+                <li class="page-item" th:classappend="${Costs.getNumber() + 1 eq Costs.getTotalPages()} ? 'disabled'">
+                    <th:block>
+                        <a class="page-link"
+                           th:href="@{${action}(
+                        page=${Costs.getNumber() + 2}, size=${pageable.getPageSize()}
+                   )}"
+                        >Next</a>
+                    </th:block>
+                </li>
+            </ul>
+        </nav>
+
     </div>
 </main>
 </body>

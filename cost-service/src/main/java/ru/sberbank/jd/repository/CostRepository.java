@@ -1,5 +1,7 @@
 package ru.sberbank.jd.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,6 +24,9 @@ public interface CostRepository extends JpaRepository<Cost, UUID> {
     )
     List<CostGroupByName> findCostsGroupByName();
 
-    List<CostGroupByName> findAllByDateBetween(LocalDate dateFrom, LocalDate dateTo);
+    Page<Cost> findAllByUserId(Pageable pageable, UUID id);
+
+    //List<Cost> findAllByUserId();
+    List<Cost> findAllByDateBetween(LocalDate dateFrom, LocalDate dateTo);
 
 }
