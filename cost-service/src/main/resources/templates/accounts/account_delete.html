@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:insert="~{fragments/head :: webjar(title='Delete Account')}">
-  <meta charset="UTF-8">
-  <title>Удалить счет</title>
+    <meta charset="UTF-8">
+    <title>Удалить счет</title>
 </head>
-<div class="container" th:insert="~{fragments/header :: header(headerTitle='Delete Account')}"></div>
+<body class="d-flex flex-column h-100">
 
-<body>
-<p th:text="${message}"></p>
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
+
+<main>
+    <div class="container-md">
+        <div class="row">
+            <div class="col-12 col-sm-10 col-md-7 col-lg-6">
+                <div class="alert alert-warning" role="alert">
+                    <p th:text="${message}"></p>
+                </div>
+                <a href="/accounts" class="btn btn-outline-secondary" role="button">Вернуться</a>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 
 </html>

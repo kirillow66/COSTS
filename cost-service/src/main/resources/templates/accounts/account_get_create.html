@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{fragments/head :: webjar(title='Create Account')}">
-  <meta charset="UTF-8">
-  <title>Create Account</title>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
 </head>
-<div class="container" th:insert="~{fragments/header :: header(headerTitle='Create Account')}"></div>
+<body class="d-flex flex-column h-100">
 
-<body>
-<h3>Создание счета</h3>
-<form th:action="@{/accounts/create}" method="post" th:object="${accountDto}">
-  <div class="form-group">
-    <label for="name">Номер счета:</label>
-    <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
-  </div>
-  <button type="submit" class="btn btn-primary">Отправить</button>
-</form>
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
+
+<main>
+    <div class="container-md">
+        <div class="row">
+            <div class="col-12 col-sm-10 col-md-7 col-lg-6">
+                <div class="alert alert-success" role="alert">
+                    Регистрация счета
+                </div>
+
+                <form th:action="@{/accounts/create}" method="post" th:object="${accountDto}">
+                    <div class="form-group mb-3">
+                        <label for="name">Номер счета:</label>
+                        <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                    <a class="btn btn-outline-secondary" href="/accounts" role="button">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
 
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:insert="~{fragments/head :: webjar(title='Categories')}">
-  <meta charset="UTF-8">
-  <title>Login page</title>
+    <meta charset="UTF-8">
+    <title>Login page</title>
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -10,36 +10,41 @@
 
 <main role="main">
 
-  <div class="container-md">
+    <div class="container-md">
 
-    <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary mb-2" href="/categories/new"
-       role="button">Создать</a>
+        <div class="alert alert-secondary" role="alert">
+            Категории
+        </div>
 
-    <!--==================================================================================-->
-    <table class="table">
-      <thead>
-      <tr>
-        <th sec:authorize="hasRole('ADMIN')" scope="col">id</th>
-        <th scope="col">Наименование</th>
-        <th sec:authorize="hasRole('ADMIN')" scope="col">
-      </tr>
-      </thead>
+        <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary mb-2" href="/categories/new"
+           role="button">Создать</a>
 
-      <tr th:each="category : ${categories}">
-        <td sec:authorize="hasRole('ADMIN')" th:text="${category.getId()}"></td>
-        <td><a th:href="'/categories/' + ${category.getId()}" th:text="${category.getName()}"></a></td>
+        <!--==================================================================================-->
+        <table class="table">
+            <thead>
+            <tr>
+                <th sec:authorize="hasRole('ADMIN')" scope="col">id</th>
+                <th scope="col">Наименование</th>
+                <th sec:authorize="hasRole('ADMIN')" scope="col">
+            </tr>
+            </thead>
 
-        <td sec:authorize="hasRole('ADMIN')">
-          <form th:action="@{'/categories/delete'}" method="POST">
-            <input type="hidden" th:id="'id_' + ${category.getId()}" name="id" th:value="${category.getId()}"/>
-            <button type="submit" class="btn-danger btn-close" aria-label="Удалить"></button>
-          </form>
-        </td>
-      </tr>
-    </table>
+            <tr th:each="category : ${categories}">
+                <td sec:authorize="hasRole('ADMIN')" th:text="${category.getId()}"></td>
+                <td><a th:href="'/categories/' + ${category.getId()}" th:text="${category.getName()}"></a></td>
 
-    <!--==================================================================================-->
-  </div>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <form th:action="@{'/categories/delete'}" method="POST">
+                        <input type="hidden" th:id="'id_' + ${category.getId()}" name="id"
+                               th:value="${category.getId()}"/>
+                        <button type="submit" class="btn-danger btn-close" aria-label="Удалить"></button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <!--==================================================================================-->
+    </div>
 </main>
 
 </body>
