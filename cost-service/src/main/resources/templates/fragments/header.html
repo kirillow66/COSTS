@@ -36,6 +36,11 @@
 <!--                        <li class="nav-item">-->
                             <a class="nav-link" href="/costs">Расходы</a>
                         </li>
+
+                        <li sec:authorize="hasRole('OWNER')" class="nav-item">
+                            <!--                        <li class="nav-item">-->
+                            <a class="nav-link" href="/reports">Отчёт</a>
+                        </li>
                     </ul>
                     
                     <a sec:authorize="isAuthenticated() == false" 
