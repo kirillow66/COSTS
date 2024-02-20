@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head th:insert="~{fragments/head :: webjar(title='Список расходов по категориям')}">
+    <meta charset="UTF-8">
+</head>
+
+<body class="d-flex flex-column h-100">
+<div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
+<main>
+    <form action="#" th:method="get" th:action="@{/reports/period}" th:object="${filter}">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-3">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Дата с</span>
+                        <input type="date" class="form-control" th:field="*{dateFrom}" aria-label="Дата с"
+                               aria-describedby="Дата с">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Дата по</span>
+                        <input type="date" class="form-control" th:field="*{dateTo}" aria-label="Дата по"
+                               aria-describedby="Дата по">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <input class="btn btn-primary" type="submit" value="Применить">
+                </div>
+            </div>
+        </div>
+        <div class="container"></div>
+
+
+        <div class="container-md">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Категория</th>
+                    <th scope="col">Сумма</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="cost:${costs}">
+                    <td th:text="${cost.name}"></td>
+                    <td th:text="${cost.price}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </form>
+</main>
+</body>
+</html>

@@ -10,6 +10,8 @@ import ru.sberbank.jd.entity.Cost;
 import ru.sberbank.jd.repository.CostRepository;
 import ru.sberbank.jd.service.security.AuthorizerUserService;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -53,8 +55,4 @@ public class CostService {
         return costRepository.findById(id);
     }
 
-    @PostFilter("@authorizerUserService.isPrincipalId(filterObject.userId)")
-    public List<CostGroupByName> findCostsByCategory() {
-        return costRepository.findCostsGroupByName();
-    }
 }

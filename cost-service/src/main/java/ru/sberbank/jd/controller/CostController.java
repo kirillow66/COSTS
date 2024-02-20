@@ -1,6 +1,8 @@
 package ru.sberbank.jd.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.time.DateUtils;
+import org.mapstruct.ap.shaded.freemarker.template.utility.DateUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +19,7 @@ import ru.sberbank.jd.service.CategoryService;
 import ru.sberbank.jd.service.CostService;
 import ru.sberbank.jd.service.security.AuthorizerUserService;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -88,13 +91,5 @@ public class CostController {
         model.addAttribute("action", "/costs");
 
         return "costs";
-    }
-
-    @GetMapping("/category")
-    public String getCostsByCategory(Model model) {
-        List<CostGroupByName> costs = costService.findCostsByCategory();
-        model.addAttribute("filter", new CostFilter(LocalDate.MIN, LocalDate.MAX));
-        model.addAttribute("costs", costs);
-        return "cost-category";
     }
 }
