@@ -21,20 +21,17 @@ public class ReportController {
 
     @GetMapping
     public String getCostsByCategory(Model model) {
-        List<CostGroupByName> costs = reportService.findCostsByCategory();
-        model.addAttribute("filter", new CostFilter());
+        CostFilter filter = new CostFilter();
+        List<CostGroupByName> costs = reportService.findAllByDateBetween(filter);
+        model.addAttribute("filter", filter);
         model.addAttribute("costs", costs);
         return "cost-report";
     }
 
     @GetMapping("/period")
     public String getCostsByCategoryDate(CostFilter filter, Model model) {
-        LocalDate dateFrom = filter.getDateFrom();
-        LocalDate dateTo = filter.getDateTo();
-        if (dateFrom == null) dateFrom = LocalDate.EPOCH;
-        if (dateTo == null) dateTo = LocalDate.of(9999, 12, 31);
 
-        List<CostGroupByName> costs = reportService.findAllByDateBetween(dateFrom, dateTo);
+        List<CostGroupByName> costs = reportService.findAllByDateBetween(filter);
         model.addAttribute("filter", filter);
         model.addAttribute("costs", costs);
         return "cost-report";

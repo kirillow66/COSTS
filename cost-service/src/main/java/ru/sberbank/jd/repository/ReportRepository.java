@@ -15,16 +15,6 @@ import java.util.UUID;
 
 @Repository
 public interface ReportRepository extends JpaRepository<Cost, UUID> {
-    @Query("""
-            SELECT
-             new ru.sberbank.jd.controller.component.CostGroupByName(c.user.id, c.category.name, SUM(c.price))
-            FROM
-             Cost c
-            GROUP BY c.user.id, c.category.name"""
-    )
-    List<CostGroupByName> findCostsGroupByName();
-
-    Page<Cost> findAllByUserId(Pageable pageable, UUID id);
 
     @Query("""
             SELECT
