@@ -1,6 +1,5 @@
 package ru.sberbank.jd.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,19 +26,19 @@ public class CategoryController {
 
     private final CategoryService service;
 
-    @PostMapping
-    public String update(@ModelAttribute CategoryUpdate update, Model model) {
+    @PostMapping("/{id}")
+    public String update(@PathVariable("id") UUID id, @ModelAttribute CategoryUpdate update, Model model) {
 
-        if (update.id() == null) {
+        if (id == null) {
 
             CategoryInput input = new CategoryInput(update.name());
             log.info("[create] input={}", input);
-            Category newEntity = service.create(input);
+            service.create(input);
 
         } else {
 
             log.info("[update] update={}", update);
-            Category updatedEntity = service.update(update);
+            service.update(new CategoryUpdate(id, update.name()));
         }
 
         model.addAttribute("categories", service.get());
@@ -84,7 +82,7 @@ public class CategoryController {
     }
 
     @GetMapping(value = {"", "/", "/all"})
-    public String get(HttpServletRequest request, Model model) {
+    public String get(Model model) {
 
         log.info("[get all]");
 

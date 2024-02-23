@@ -32,8 +32,7 @@ public class CategoryRestController {
     public Category create(@RequestBody CategoryInput input) {
 
         log.info("[create] input={}", input);
-        Category entity = service.create(input);
-        return entity;
+        return service.create(input);
     }
 
     @GetMapping("/{id}")
