@@ -17,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.sberbank.jd.entity.User;
 import ru.sberbank.jd.entity.UserRole;
 import ru.sberbank.jd.exception.UserFound;
+import ru.sberbank.jd.exception.UserNotFound;
 import ru.sberbank.jd.repository.UserRepository;
 
 @ExtendWith(SpringExtension.class)
@@ -80,8 +81,10 @@ class UserServiceImplTest {
     @Test
     void delete() {
         UUID userId = UUID.randomUUID();
-        userService.delete(userId);
-        Mockito.verify(userRepository).deleteById(userId);
+        
+        Assertions.assertThrows(UserNotFound.class, 
+                () -> userService.delete(userId));
+        Mockito.verify(userRepository, Mockito.never()).deleteById(userId);
     }
     
 }

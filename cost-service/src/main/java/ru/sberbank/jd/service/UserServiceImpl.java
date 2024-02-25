@@ -5,12 +5,16 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.sberbank.jd.entity.User;
 import ru.sberbank.jd.entity.UserRole;
+import ru.sberbank.jd.exception.UserCantDeleted;
 import ru.sberbank.jd.exception.UserFound;
+import ru.sberbank.jd.exception.UserNotFound;
 import ru.sberbank.jd.repository.UserRepository;
 
 /**
@@ -54,8 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @PostFilter("@authorizerUserService.isPrincipalId(filterObject.id) or hasRole('ADMIN')")
     public List<User> findAll() {
-        List<User> all = repository.findAll();
-        return all;
+        return repository.findAll(Sort.by(Sort.Direction.ASC, "login"));
     }
 
     /**
@@ -83,8 +86,15 @@ public class UserServiceImpl implements UserService {
      * @param id the id
      */
     @Override
-//    @PreAuthorize("hasAuthority('admin:delete')")
     public void delete(final UUID id) {
-        repository.deleteById(id);
+        if (repository.findById(id).isEmpty()) {
+            throw new UserNotFound();
+        }
+        
+        try {
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException exception) {
+            throw new UserCantDeleted(repository.findById(id).get().getLogin());
+        }
     }
 }
