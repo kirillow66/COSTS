@@ -43,6 +43,12 @@ public class Category {
     @Enumerated(EnumType.STRING)
     private CategoryType categoryType;
 
+    /**
+     * Of category.
+     *
+     * @param input the input
+     * @return the category
+     */
     public static Category of(CategoryInput input) {
         return new CategoryBuilder()
                 .id(UUID.randomUUID())
@@ -50,6 +56,12 @@ public class Category {
                 .build();
     }
 
+    /**
+     * Of category.
+     *
+     * @param update the update
+     * @return the category
+     */
     public static Category of(CategoryUpdate update) {
         return new CategoryBuilder()
                 .id(update.id())
