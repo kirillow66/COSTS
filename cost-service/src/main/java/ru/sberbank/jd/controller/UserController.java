@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.sberbank.jd.dto.UserDto;
 import ru.sberbank.jd.entity.User;
+import ru.sberbank.jd.exception.UserCantDeleted;
 import ru.sberbank.jd.exception.UserFound;
 import ru.sberbank.jd.exception.UserNotFound;
 import ru.sberbank.jd.mappers.UserMapper;
@@ -33,6 +34,7 @@ import ru.sberbank.jd.service.UserService;
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
+    private String errorMessage = "";
 
     /**
      * Find all string.
@@ -47,6 +49,8 @@ public class UserController {
         log.info("[findAll] output={}", users);
 
         model.addAttribute("users", users);
+        setErrorMessage(model);
+
         return "users";
     }
 
@@ -59,6 +63,8 @@ public class UserController {
     @GetMapping("/userCreate")
     public String createForm(Model model) {
         model.addAttribute("registerForm", new UserDto());
+        setErrorMessage(model);
+
         return "userCreate";
     }
 
@@ -74,8 +80,16 @@ public class UserController {
 
         User user = userMapper.toEntity(dto);
         log.info("[create] input={}", user.toString());
-        userService.create(user);
-
+        try {
+            userService.create(user);
+        } catch (UserFound e) {
+            dto.setLogin("");
+            dto.setPassword("");
+            model.addAttribute("registerForm", dto);
+            errorMessage = e.getMessage();
+            setErrorMessage(model);
+            return "userCreate";
+        }
         return "redirect:/users/all";
     }
 
@@ -87,15 +101,15 @@ public class UserController {
      * @return the string
      */
     @PostMapping("/userDelete")
+    @PreAuthorize("hasRole('ADMIN')")
     public String userDelete(@ModelAttribute UserDto dto, Model model) {
 
         log.info("[delete] userId={}", dto.getId());
-        User byId = userService.findById(dto.getId());
-        if (byId == null) {
-            throw new UserNotFound();
+        try {
+            userService.delete(dto.getId());
+        } catch (UserCantDeleted | UserNotFound e) {
+            errorMessage = e.getMessage();
         }
-
-        userService.delete(byId.getId());
 
         return "redirect:/users/all";
     }
@@ -111,4 +125,10 @@ public class UserController {
         return "error/500";
     }
 
+    private void setErrorMessage(Model model) {
+        if (!errorMessage.isEmpty()) {
+            model.addAttribute("errorMessage", errorMessage);
+            errorMessage = "";
+        }
+    }
 }

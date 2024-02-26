@@ -11,32 +11,40 @@
     <div class="container-md">
         <div class="row">
             <div class="col-12 col-sm-10 col-md-7 col-lg-6">
-            <form th:if="${isLogged} == false" th:action="@{/register}" method="POST" id="registerForm" 
-              th:object="${registerForm}">
-            <div class="form-floating mb-3">
-                <input name="login" type="text" class="form-control" id="floatingLogin" placeholder="Логин" 
-                       required th:value="*{login}">
-                <label for="floatingLogin">Логин</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Пароль" 
-                       required th:value="*{password}">
-                <label for="floatingPassword">Пароль</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input name="name" type="text" class="form-control" id="floatingName" placeholder="Имя"
-                       required th:value="*{name}">
-                <label for="floatingName">Имя</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input name="email" type="email" class="form-control" id="floatingEMail" placeholder="name@example.com"
-                       required th:value="*{email}">
-                <label for="floatingEMail">Email</label>
-            </div>
-            
-            <button type="submit" class="btn btn-success">Зарегистрироваться</button>
-            <a class="btn btn-outline-secondary" href="/" role="button">Отмена</a>
-            </form>
+                <div class="alert alert-success">
+                    Регистрация пользователя
+                </div>
+                <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                    <span th:text="${errorMessage}">errorMessage</span>
+                </div>
+                <form th:if="${isLogged} == false" th:action="@{/register}" method="POST" id="registerForm"
+                      th:object="${registerForm}">
+                    <div class="form-floating mb-3">
+                        <input name="login" type="text" class="form-control" id="floatingLogin" placeholder="Логин"
+                               required th:value="*{login}">
+                        <label for="floatingLogin">Логин</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="password" type="password" class="form-control" id="floatingPassword"
+                               placeholder="Пароль"
+                               required th:value="*{password}">
+                        <label for="floatingPassword">Пароль</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="name" type="text" class="form-control" id="floatingName" placeholder="Имя"
+                               required th:value="*{name}">
+                        <label for="floatingName">Имя</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="email" type="email" class="form-control" id="floatingEMail"
+                               placeholder="name@example.com"
+                               required th:value="*{email}">
+                        <label for="floatingEMail">Email</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+                    <a class="btn btn-outline-secondary" href="/" role="button">Отмена</a>
+                </form>
             </div>
         </div>
     </div>
