@@ -5,6 +5,9 @@ import lombok.*;
 import java.util.UUID;
 
 
+/**
+ * The type Cost group by name.
+ */
 @Builder
 @Setter
 @Getter

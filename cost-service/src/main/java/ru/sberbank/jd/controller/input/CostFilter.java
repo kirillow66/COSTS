@@ -8,6 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
+/**
+ * The type Cost filter.
+ */
 @Setter
 @Getter
 @AllArgsConstructor

@@ -6,15 +6,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.sberbank.jd.entity.Cost;
-import ru.sberbank.jd.entity.User;
 import ru.sberbank.jd.exception.NotAuthorizeFound;
-import ru.sberbank.jd.exception.UserNotFound;
 import ru.sberbank.jd.service.AccountService;
 import ru.sberbank.jd.service.CategoryService;
 import ru.sberbank.jd.service.CostService;
@@ -23,6 +20,9 @@ import ru.sberbank.jd.service.security.AuthorizerUserService;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * The type Cost controller.
+ */
 @Controller
 @RequestMapping("/costs")
 @RequiredArgsConstructor
@@ -32,6 +32,12 @@ public class CostController {
     private final AccountService accountService;
     private Pageable paging;
 
+    /**
+     * Create cost.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/create")
     public String createCost(Model model) {
 
@@ -43,6 +49,13 @@ public class CostController {
         return "create-cost";
     }
 
+    /**
+     * Save create cost.
+     *
+     * @param cost  the cost
+     * @param model the model
+     * @return the string
+     */
     @PostMapping("/create")
     public String saveCreateCost(@ModelAttribute @Validated Cost cost, Model model) {
         AuthorizerUserService userService = new AuthorizerUserService();
@@ -53,19 +66,38 @@ public class CostController {
         return "redirect:/costs";
     }
 
+    /**
+     * Update cost.
+     *
+     * @param cost the cost
+     * @return the string
+     */
     @PostMapping("/update")
     public String updateCost(@ModelAttribute @Validated Cost cost) {
         costService.updateCost(cost);
         return "redirect:/costs?" + "page=" + String.valueOf(paging.getPageNumber() + 1) + "&size=" + paging.getPageSize();
     }
 
+    /**
+     * Delete cost.
+     *
+     * @param id the id
+     * @return the string
+     */
     @PostMapping("/delete/{id}")
     public String deleteCost(@PathVariable("id") UUID id) {
 
-        UUID deleteId = costService.deleteCost(id);
+        costService.deleteCost(id);
         return "redirect:/costs";
     }
 
+    /**
+     * Gets cost by id.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the cost by id
+     */
     @GetMapping("/{id}")
     public String getCostById(@PathVariable("id") UUID id, Model model) {
         Cost cost = costService.getCostById(id);
@@ -74,7 +106,7 @@ public class CostController {
         if (cost.getUser().getId().compareTo(userService.getPrincipalId()) != 0) {
             throw new NotAuthorizeFound();
         }
-        ;
+
         model.addAttribute("cost", cost);
         model.addAttribute("categories", categoryService.get());
         model.addAttribute("accounts", accountService.getAllAccounts());
@@ -83,6 +115,14 @@ public class CostController {
         return "create-cost";
     }
 
+    /**
+     * Gets costs.
+     *
+     * @param model the model
+     * @param page  the page
+     * @param size  the size
+     * @return the costs
+     */
     @GetMapping
     public String getCosts(Model model, @RequestParam(defaultValue = "1", name = "page") Integer page,
                            @RequestParam(defaultValue = "5", name = "size") Integer size) {
@@ -97,6 +137,11 @@ public class CostController {
         return "costs";
     }
 
+    /**
+     * Handle error.
+     *
+     * @return the string
+     */
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(RuntimeException.class)
     public String handle() {
