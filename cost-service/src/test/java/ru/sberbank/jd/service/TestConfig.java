@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ru.sberbank.jd.repository.CategoryRepository;
 import ru.sberbank.jd.repository.CostRepository;
 import ru.sberbank.jd.repository.UserRepository;
 
@@ -27,6 +28,18 @@ public class TestConfig {
     @Bean
     public UserRepository userRepository() {
         return Mockito.mock(UserRepository.class);
+    }
+
+    @Bean
+    public CategoryRepository categoryRepository() {
+        return Mockito.mock(CategoryRepository.class);
+    }
+
+    @Bean
+    @Primary
+    public CategoryService categoryService(CategoryRepository categoryRepository) {
+
+        return new CategoryService(categoryRepository);
     }
 
     @Bean

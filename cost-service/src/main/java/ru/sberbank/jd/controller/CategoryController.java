@@ -18,6 +18,9 @@ import ru.sberbank.jd.controller.in.CategoryUpdate;
 import ru.sberbank.jd.entity.Category;
 import ru.sberbank.jd.service.CategoryService;
 
+/**
+ * The type Category controller.
+ */
 @Controller
 @RequestMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
@@ -26,25 +29,48 @@ public class CategoryController {
 
     private final CategoryService service;
 
-    @PostMapping("/{id}")
-    public String update(@PathVariable("id") UUID id, @ModelAttribute CategoryUpdate update, Model model) {
+    /**
+     * Create category.
+     *
+     * @param update the update
+     * @param model  the model
+     * @return the string
+     */
+    @PostMapping("/new")
+    public String create(@ModelAttribute CategoryUpdate update, Model model) {
 
-        if (id == null) {
-
-            CategoryInput input = new CategoryInput(update.name());
-            log.info("[create] input={}", input);
-            service.create(input);
-
-        } else {
-
-            log.info("[update] update={}", update);
-            service.update(new CategoryUpdate(id, update.name()));
-        }
+        CategoryInput input = new CategoryInput(update.name());
+        log.info("[create] input={}", input);
+        service.create(input);
 
         model.addAttribute("categories", service.get());
         return "categories";
     }
 
+    /**
+     * Update category.
+     *
+     * @param id     the id
+     * @param update the update
+     * @param model  the model
+     * @return the string
+     */
+    @PostMapping("/{id}")
+    public String update(@PathVariable("id") UUID id, @ModelAttribute CategoryUpdate update, Model model) {
+
+        log.info("[update] update={}", update);
+        service.update(new CategoryUpdate(id, update.name()));
+        model.addAttribute("categories", service.get());
+        return "categories";
+    }
+
+    /**
+     * Delete category.
+     *
+     * @param update the update
+     * @param model  the model
+     * @return the string
+     */
     @PostMapping("/delete")
     public String delete(@ModelAttribute CategoryUpdate update, Model model) {
 
@@ -60,6 +86,13 @@ public class CategoryController {
         return "categories";
     }
 
+    /**
+     * Get category.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/{id}")
     public String get(@PathVariable("id") UUID id, Model model) {
 
@@ -75,12 +108,23 @@ public class CategoryController {
         return "category";
     }
 
+    /**
+     * Get category.
+     *
+     * @return the string
+     */
     @GetMapping("/new")
     public String get() {
 
         return "category";
     }
 
+    /**
+     * Get category.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping(value = {"", "/", "/all"})
     public String get(Model model) {
 

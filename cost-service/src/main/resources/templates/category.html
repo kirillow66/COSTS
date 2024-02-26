@@ -17,7 +17,7 @@
                     Регистрация категории
                 </div>
                 <!--==================================================================================-->
-                <form action="#" th:href="'/categories/' + ${id}" th:object="${update}" method="post">
+                <form action="#" th:href="${id} ? '/categories/' + ${id} : '/categories/new'" method="post">
                     <table class="table">
                         <tr>
                             <td><label th:for="'id_' + ${id}">Id:</label></td>

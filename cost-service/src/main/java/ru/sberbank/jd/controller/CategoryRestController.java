@@ -20,6 +20,9 @@ import ru.sberbank.jd.controller.in.CategoryUpdate;
 import ru.sberbank.jd.entity.Category;
 import ru.sberbank.jd.service.CategoryService;
 
+/**
+ * The type Category rest controller.
+ */
 @RestController
 @RequestMapping(value = "/api/categories", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
@@ -28,6 +31,12 @@ public class CategoryRestController {
 
     private final CategoryService service;
 
+    /**
+     * Create category.
+     *
+     * @param input the input
+     * @return the category
+     */
     @PostMapping
     public Category create(@RequestBody CategoryInput input) {
 
@@ -35,6 +44,12 @@ public class CategoryRestController {
         return service.create(input);
     }
 
+    /**
+     * Get category.
+     *
+     * @param id the id
+     * @return the category
+     */
     @GetMapping("/{id}")
     public Category get(@PathVariable("id") UUID id) {
 
@@ -49,6 +64,11 @@ public class CategoryRestController {
         }
     }
 
+    /**
+     * Get list.
+     *
+     * @return the list
+     */
     @GetMapping(value={"", "/"})
     public List<Category> get() {
 
@@ -56,6 +76,12 @@ public class CategoryRestController {
         return service.get();
     }
 
+    /**
+     * Update category.
+     *
+     * @param update the update
+     * @return the category
+     */
     @PutMapping
     public Category update(@RequestBody CategoryUpdate update) {
 
@@ -69,6 +95,12 @@ public class CategoryRestController {
         }
     }
 
+    /**
+     * Delete category.
+     *
+     * @param id the id
+     * @return the category
+     */
     @DeleteMapping("/{id}")
     public Category delete(@PathVariable("id") UUID id) {
 
