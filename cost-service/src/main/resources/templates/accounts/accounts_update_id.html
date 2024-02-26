@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org">
 <head th:insert="~{fragments/head :: webjar(title='Update Account')}">
     <meta charset="UTF-8">
     <title>Обновление параметров счета</title>
@@ -8,7 +8,7 @@
 
 <div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
 
-<main>
+<main role="main" sec:authorize="hasRole('ADMIN')">
     <div class="container-md">
         <div class="row">
             <div class="col-12 col-sm-10 col-md-7 col-lg-6">
@@ -28,7 +28,6 @@
         </div>
     </div>
 </main>
-</form>
 </body>
 
 </html>
