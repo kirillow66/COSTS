@@ -3,6 +3,7 @@ package ru.sberbank.jd.service;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Service;
 import ru.sberbank.jd.controller.component.CostGroupByName;
@@ -40,7 +41,6 @@ public class CostService {
         return id;
     }
 
-    //    @PostFilter("@authorizerUserService.isPrincipalId(filterObject.user.id)")
     public Page<Cost> getCosts(Pageable pageable) {
         AuthorizerUserService authorizerUserService = new AuthorizerUserService();
         return costRepository.findAllByUserId(pageable, authorizerUserService.getPrincipalId());
@@ -50,9 +50,9 @@ public class CostService {
     public List<Cost> getCosts() {
         return costRepository.findAll();
     }
-
-    public Optional<Cost> getCostById(UUID id) {
-        return costRepository.findById(id);
+    public Cost getCostById(UUID id) {
+        Optional<Cost> cost = costRepository.findById(id);
+        return cost.get();
     }
 
 }
