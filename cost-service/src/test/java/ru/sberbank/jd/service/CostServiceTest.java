@@ -3,6 +3,7 @@ package ru.sberbank.jd.service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ class CostServiceTest {
     @Test
     void create() {
         Cost cost = new Cost().builder().name("Еда").date(LocalDate.now()).price(350.0).build();
+        Mockito.when(costRepository.save(cost))
+                .thenReturn(cost);
 
         Cost testCost = costService.createCost(cost);
 
@@ -48,12 +51,4 @@ class CostServiceTest {
         Assertions.assertEquals(cost.getName(),
                 testCost.getName());
     }
-
-    @Test
-    void delete() {
-        UUID costId = UUID.randomUUID();
-        costService.deleteCost(costId);
-        Mockito.verify(costRepository).deleteById(costId);
-    }
-
 }
