@@ -1,41 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:insert="~{fragments/head :: webjar(title='Categories')}">
-    <meta charset="UTF-8">
-    <title>Login page</title>
+  <meta charset="UTF-8">
+  <title>Login page</title>
 </head>
 <body class="d-flex flex-column h-100">
 
 <div class="container" th:insert="~{fragments/header :: header(headerTitle='Costs')}"></div>
 
-<main role="main" sec:authorize="hasRole('ADMIN')">
+<main role="main">
+  <!--<main role="main" sec:authorize="hasRole('ADMIN')">-->
 
-    <div class="container-md">
-        <div class="row">
-            <div class="col-12 col-sm-10 col-md-7 col-lg-6">
-                <div class="alert alert-success" role="alert">
-                    Регистрация категории
-                </div>
-                <!--==================================================================================-->
-                <form action="#" th:href="${id} ? '/categories/' + ${id} : '/categories/new'" method="post">
-                    <table class="table">
-                        <tr>
-                            <td><label th:for="'id_' + ${id}">Id:</label></td>
-                            <td><input type="text" th:id="'id_' + ${id}" name="id" th:value="${id}" disabled/></td>
-                        </tr>
-                        <tr>
-                            <td><label th:for="'name_' + ${id}">Название:</label></td>
-                            <td><input type="text" th:id="'name_' + ${id}" name="name" th:value="${name}"/></td>
-                        </tr>
-                    </table>
-
-                    <input type="submit" class="btn btn-primary mb-2" role="button" value="Сохранить"/>
-                    <a class="btn btn-primary mb-2" href="/categories" role="button">Отмена</a>
-                </form>
-                <!--==================================================================================-->
-            </div>
+  <div class="container-md">
+    <div class="row">
+      <div class="col-12 col-sm-10 col-md-7 col-lg-6">
+        <div class="alert alert-success" role="alert">
+          Регистрация категории
         </div>
+        <!--==================================================================================-->
+        <form action="#" th:href="${id} ? '/categories/' + ${id} : '/categories/new'" method="post">
+          <table class="table">
+            <tr>
+              <td><label th:for="'id_' + ${id}">Id:</label></td>
+              <td><input type="text" th:id="'id_' + ${id}" name="id" th:value="${id}" disabled/></td>
+            </tr>
+            <tr>
+              <td><label th:for="'name_' + ${id}">Название:</label></td>
+              <td>
+                <input sec:authorize="hasRole('ADMIN')" type="text" th:id="'name_' + ${id}" name="name"
+                       th:value="${name}"/>
+
+                <div th:unless="${#authorization.expression('hasRole(''ADMIN'')')}">
+                  <input type="text" th:id="'name_' + ${id}" name="name" th:value="${name}" disabled/>
+                </div>
+              </td>
+            </tr>
+          </table>
+
+          <input sec:authorize="hasRole('ADMIN')" type="submit" class="btn btn-primary mb-2" role="button"
+                 value="Сохранить"/>
+
+          <a class="btn btn-primary mb-2" href="/categories" role="button">Отмена</a>
+        </form>
+        <!--==================================================================================-->
+      </div>
     </div>
+  </div>
 </main>
 
 </body>
